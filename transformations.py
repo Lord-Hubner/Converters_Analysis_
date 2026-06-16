@@ -23,7 +23,7 @@ table = pd.read_csv('labels.csv')
 newPaths = []
 paths = table["path"].values
 for i, (fold, sample_idx, filename, label, clas, path) in table.iterrows():
-    newPath = f"DeepInsight_KIRC_4x4_IMGS/fold_{str(fold)}/{str(clas)}/{filename}"
+    newPath = f"DeepInsight_KIRC_full_IMGS/fold_{str(fold)}/{str(clas)}/{filename}"
     newPaths.append(newPath)
 
 table["path"] = newPaths

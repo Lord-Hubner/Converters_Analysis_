@@ -63,7 +63,7 @@ def build_converter(converter_name):
         return pyDeepInsight.image_transformer.ImageTransformer(
             tsne,
             "bin",
-            (4, 4)
+            (32, 32)
         )
 
     raise ValueError(f"Unknown converter: {converter_name}")
@@ -90,7 +90,7 @@ def to_uint8_image(img):
 
 def main():
     INPUT_FILE = "KIRC_features_nogene.csv"
-    OUTPUT_DIR = "DeepInsight_KIRC_4x4_IMGS"
+    OUTPUT_DIR = "DeepInsight_KIRC_full_IMGS"
     CONVERTER = "DeepInsight"
     MAKE_FOLDS = False
     N_SPLITS = 5
