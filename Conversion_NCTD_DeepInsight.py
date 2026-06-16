@@ -63,7 +63,7 @@ def build_converter(converter_name):
         return pyDeepInsight.image_transformer.ImageTransformer(
             tsne,
             "bin",
-            (32, 32)
+            (4, 4)
         )
 
     raise ValueError(f"Unknown converter: {converter_name}")
@@ -155,6 +155,11 @@ def main():
 
     all_metadata = []
 
+    converter = build_converter(CONVERTER)
+    if CONVERTER == "DeepInsight":
+        print("DeepInsight: fitting global...")
+        converter.fit(X)
+
     for fold_number, fold_indices in folds_idxs.items():
         fold_output = os.path.join(OUTPUT_DIR, "fold_" + str(fold_number))
         os.makedirs(fold_output, exist_ok=True)
@@ -162,8 +167,11 @@ def main():
         current_X = X[fold_indices]
         current_y = y[fold_indices]
 
-        converter = build_converter(CONVERTER)
-        images = converter.fit_transform(current_X)
+        if CONVERTER == "DeepInsight":
+            images = converter.transform(current_X)
+        else:
+            converter = build_converter(CONVERTER)
+            images = converter.fit_transform(current_X)
 
         print(f"Fold {fold_number} generated shape: {images.shape}")
 
