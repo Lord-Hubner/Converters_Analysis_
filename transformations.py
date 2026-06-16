@@ -18,12 +18,16 @@ import pandas as pd
 #luad.to_csv("PRAD_features_nogene.csv", index=True)
 
 
-table = pd.read_csv('KIRC_features_nogene.csv', index_col=0)
+table = pd.read_csv('labels.csv')
 
-y = table["label"]
-X = table.drop(columns="label")
+newPaths = []
+paths = table["path"].values
+for i, (fold, sample_idx, filename, label, clas, path) in table.iterrows():
+    newPath = f"DeepInsight_KIRC_4x4_IMGS/fold_{str(fold)}/{str(clas)}/{filename}"
+    newPaths.append(newPath)
+
+table["path"] = newPaths
 
 
-y.to_csv("label_KIRC")
-X.to_csv("data_KIRC")
+table.to_csv("new_labels.csv", index=False)
 

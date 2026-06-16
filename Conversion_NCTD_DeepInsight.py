@@ -90,7 +90,7 @@ def to_uint8_image(img):
 
 def main():
     INPUT_FILE = "KIRC_features_nogene.csv"
-    OUTPUT_DIR = "DeepInsight_KIRC_IMGS_4x4"
+    OUTPUT_DIR = "DeepInsight_KIRC_4x4_IMGS"
     CONVERTER = "DeepInsight"
     MAKE_FOLDS = False
     N_SPLITS = 5
