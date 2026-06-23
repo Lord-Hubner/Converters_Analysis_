@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 from gprofiler import GProfiler
+import matplotlib.pyplot as plt 
 
 def get_gene_ids(df, gene_column=None):
     if gene_column is not None and gene_column in df.columns:
@@ -90,6 +91,38 @@ def run_gprofiler_go(
         print(f"Saved: {output_file}")
 
 
-run_gprofiler_go("KIRC_features.csv", "KIRC")
-run_gprofiler_go("LUAD_features.csv", "LUAD")
-run_gprofiler_go("PRAD_features.csv", "PRAD")
+#run_gprofiler_go("KIRC_features.csv", "KIRC")
+#run_gprofiler_go("LUAD_features.csv", "LUAD")
+#run_gprofiler_go("PRAD_features.csv", "PRAD")
+
+def plot_go_results(csv_file, title, output_png, top_n=15):
+    df = pd.read_csv(csv_file)
+
+    if df.empty:
+        print(f"No enriched terms in {csv_file}")
+        return
+
+    df = df.sort_values("p_value").head(top_n).copy()
+    df["minus_log10_p"] = -df["p_value"].apply(lambda x: __import__("math").log10(x))
+
+    for a in df["name"]:
+        if len(a)>50:
+            print(a)
+        
+    df["name"] = df["name"].apply(lambda x: "".join(word[0].upper() for word in x.split()) if len(x) > 50 else x)
+
+    plt.figure(figsize=(12, 6))
+    plt.barh(df["name"][::-1], df["minus_log10_p"][::-1])
+    plt.subplots_adjust(left=0.3)
+    plt.yticks(fontsize=9)
+    plt.xlabel("-log10(adjusted p-value)")
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig(output_png, dpi=600)
+    plt.close()
+
+plot_go_results(
+    "GO_results_python/LUAD_Downregulated_GO_BP_gprofiler.csv",
+    "LUAD - Downregulated GO Biological Process",
+    "GO_results_python/LUAD_Downregulated_GO_BP.png"
+)
