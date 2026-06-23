@@ -1,0 +1,6 @@
+model,fold,train_rows,test_rows,accuracy,precision_macro,recall_macro,f1_macro,seconds
+random_forest,1,14026,3507,1.0,1.0,1.0,1.0,0.8729100809978263
+random_forest,2,14026,3507,1.0,1.0,1.0,1.0,0.8740231179981492
+random_forest,3,14026,3507,1.0,1.0,1.0,1.0,0.9417964630010829
+random_forest,4,14027,3506,1.0,1.0,1.0,1.0,0.922724117001053
+random_forest,5,14027,3506,1.0,1.0,1.0,1.0,0.9105372939993686

@@ -1,0 +1,4 @@
+,predicted_Downregulated,predicted_Upgregulated,predicted_NoDifference
+actual_Downregulated,1833,6,7
+actual_Upgregulated,3,3870,26
+actual_NoDifference,1803,5438,5617
