@@ -22,7 +22,6 @@ from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     accuracy_score,
-    balanced_accuracy_score,
     confusion_matrix,
     f1_score,
     precision_score,
@@ -204,7 +203,6 @@ def fit_model(model: object, X: pd.DataFrame, y: pd.Series) -> object:
 def calculate_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, float]:
     return {
         "accuracy": accuracy_score(y_true, y_pred),
-        #"balanced_accuracy": balanced_accuracy_score(y_true, y_pred),
         "precision_macro": precision_score(y_true, y_pred, average="macro", zero_division=0),
         "recall_macro": recall_score(y_true, y_pred, average="macro", zero_division=0),
         "f1_macro": f1_score(y_true, y_pred, average="macro", zero_division=0),
@@ -287,7 +285,6 @@ def evaluate_model(
 
     print(
         f"    overall: macro-F1={overall['f1_macro']:.4f}, "
-        #f"balanced accuracy={overall['balanced_accuracy']:.4f}"
     )
     return summary, prediction_frame
 
@@ -304,12 +301,6 @@ def run_dataset(
     output_dir.mkdir(parents=True, exist_ok=True)
 
     X, y, row_ids = load_dataset(input_path)
-    minimum_class_count = int(y.value_counts().min())
-    #if folds < 2 or folds > minimum_class_count:
-    #    raise ValueError(
-    #        f"--folds must be between 2 and the smallest class count "
-    #        f"({minimum_class_count}) for {input_path}."
-    #    )
 
     skf = StratifiedKFold(n_splits=folds, shuffle=True, random_state=RANDOM_STATE)
     splits = list(skf.split(X, y))
