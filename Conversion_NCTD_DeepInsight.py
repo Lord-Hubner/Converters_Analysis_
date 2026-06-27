@@ -90,8 +90,8 @@ def to_uint8_image(img):
 
 def main():
     INPUT_FILE = "LUAD_features_nogene.csv"
-    OUTPUT_DIR = "DeepInsight_LUAD_full_IMGS"
-    CONVERTER = "DeepInsight"
+    OUTPUT_DIR = "NCTD_LUAD_bah_IMGS"
+    CONVERTER = "NCTD"
     MAKE_FOLDS = False
     N_SPLITS = 5
 
